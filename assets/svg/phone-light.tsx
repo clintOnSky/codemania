@@ -8,7 +8,7 @@ import Svg, {
   Stop,
 } from "react-native-svg";
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
-const PhoneLight = ({ width = 121, height = 113, ...props }: SvgProps) => (
+const PhoneLight = ({ width, height, ...props }: SvgProps) => (
   <Svg
     width={width}
     height={height}

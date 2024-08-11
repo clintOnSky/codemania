@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
@@ -29,6 +29,12 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+  const segments = useSegments();
+
+  useEffect(() => {
+    console.log(segments);
+  }, [segments]);
+
   if (!loaded) {
     return null;
   }
@@ -38,6 +44,7 @@ export default function RootLayout() {
       <StatusBar style="light" backgroundColor="#020912" translucent />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="(home)/dashboard" />
       </Stack>
     </SafeAreaView>
   );

@@ -1,33 +1,27 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Colors } from "@/constants/Colors";
 import Sizes from "@/constants/Sizes";
+import { Colors } from "@/constants/Colors";
 
-const Dashboard = () => {
+const DashboardHeader = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.profileView}>
-          <View style={styles.orangeCircleFill} />
-          <View style={styles.imageWrapper}>
-            <Image
-              source={require("@assets/images/dp1.png")}
-              style={styles.image}
-            />
-          </View>
+    <View style={styles.header}>
+      <View style={styles.profileView}>
+        <View style={styles.orangeCircleFill} />
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require("@assets/images/dp1.png")}
+            style={styles.image}
+          />
         </View>
       </View>
     </View>
   );
 };
 
-export default Dashboard;
+export default DashboardHeader;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
   header: {
     paddingTop: Sizes.large / 2,
     alignItems: "flex-end",
