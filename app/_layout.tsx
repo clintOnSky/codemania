@@ -3,7 +3,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -42,14 +41,17 @@ export default function RootLayout() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="light" backgroundColor="#020912" translucent />
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }} initialRouteName="index">
         <Stack.Screen
           name="index"
           options={{ animation: "slide_from_right" }}
         />
         <Stack.Screen
           name="(home)/dashboard"
-          options={{ animation: "slide_from_right" }}
+          options={{
+            animation: "slide_from_right",
+            animationTypeForReplace: "push",
+          }}
         />
       </Stack>
     </SafeAreaView>
