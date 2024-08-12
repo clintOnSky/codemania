@@ -1,6 +1,4 @@
-import OnboardingCutOut from "@/assets/svg/onboarding-cutout";
 import { Colors } from "@/constants/Colors";
-import MaskedView from "@react-native-masked-view/masked-view";
 import {
   Image,
   StyleSheet,
@@ -8,50 +6,47 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  NativeSyntheticEvent,
+  ImageLoadEventData,
 } from "react-native";
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import PhoneLight from "@/assets/svg/phone-light";
 import Sizes from "@/constants/Sizes";
 import { Fonts } from "@/constants/Fonts";
 import ArrowTopRight from "@/assets/svg/arrow-top-right";
 import { Link } from "expo-router";
-import Constants from "expo-constants";
-
-const STATUS_BAR_HEIGHT = Constants.statusBarHeight;
-
-const LIGHT_ASPECT_RATIO = 1.0707964602;
 
 const Onboarding = () => {
   return (
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
       <View style={styles.topContent}>
-        <MaskedView
-          style={styles.maskedView}
-          maskElement={
-            <View style={styles.maskedElementView}>
-              <OnboardingCutOut />
-            </View>
-          }
-        >
-          <View style={styles.maskedContent}>
-            <Image
-              source={require("@assets/images/onboarding.png")}
-              resizeMode="contain"
-              style={styles.image}
-            />
-            <View style={styles.phoneLightView}>
-              <PhoneLight
-                width={Sizes.large30 * 4}
-                height={(Sizes.large30 * 4) / LIGHT_ASPECT_RATIO}
-              />
-            </View>
-          </View>
-        </MaskedView>
+        <Image
+          source={require("@assets/images/onboarding-cutout.png")}
+          style={styles.image}
+          resizeMode="contain"
+          onLoad={(event: NativeSyntheticEvent<ImageLoadEventData>) => {
+            const { height, width } = event.nativeEvent.source;
+            console.log(width, height);
+          }}
+        />
       </View>
-      <View style={styles.bottomContent}></View>
+      <View style={styles.bottomContent}>
+        <View style={styles.descriptionView}>
+          <View style={styles.sendView}>
+            <Text style={styles.descText}>Send</Text>
+          </View>
+          <View>
+            <Text style={styles.descText}>Receive</Text>
+          </View>
+          <View>
+            <Text style={styles.descText}>Connect</Text>
+          </View>
+        </View>
+        <Link href="/(home)/dashboard" asChild>
+          <TouchableOpacity style={styles.dashboardBtn} activeOpacity={0.8}>
+            <Text>Go to dashboard</Text>
+            <ArrowTopRight />
+          </TouchableOpacity>
+        </Link>
+      </View>
     </ScrollView>
   );
 };
@@ -62,40 +57,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+    paddingHorizontal: Sizes.mediumLarge * 3,
   },
   topContent: {
     flex: 1,
-    justifyContent: "flex-end",
-    backgroundColor: "red",
-  },
-  maskedView: {
-    flex: 1,
-    backgroundColor: Colors.pink,
-  },
-  maskedElementView: {
-    flex: 1,
-    marginTop: Sizes.large30 * 3,
-    justifyContent: "center",
     alignItems: "center",
-  },
-  maskedContent: {
-    flex: 1,
-    width: "100%",
-    // flexDirection: "row",
-    backgroundColor: Colors.pink,
+    justifyContent: "flex-end",
   },
   image: {
-    marginTop: Sizes.large30 * 3,
     width: "100%",
-    flex: 1,
-  },
-  phoneLightView: {
-    position: "absolute",
-    right: wp(20),
-    bottom: Sizes.large * 5.8,
   },
   bottomContent: {
     flex: 1,
-    backgroundColor: "blue",
+    justifyContent: "center",
+    // backgroundColor: "red",
+  },
+  descriptionView: {
+    marginBottom: Sizes.extraLarge2,
+    gap: Sizes.large,
+  },
+  sendView: {
+    backgroundColor: Colors.orange,
+    paddingVertical: Sizes.small / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Sizes.small,
+  },
+  descText: {
+    fontFamily: Fonts.regular,
+    fontSize: Sizes.extraLarge2,
+    lineHeight: Sizes.extraLarge2 * 1.2,
+    textAlign: "center",
+    color: Colors.white,
+  },
+  dashboardBtn: {
+    alignSelf: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: Sizes.large30 / 2,
+    paddingVertical: Sizes.smaller / 2,
+    backgroundColor: Colors.white,
+    borderRadius: Sizes.medium / 2,
+  },
+  dashboardTxt: {
+    fontFamily: Fonts.regular,
+    fontSize: Sizes.large - 2,
+    lineHeight: Sizes.large * 1.1,
+    color: Colors.dark,
   },
 });

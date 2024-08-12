@@ -11,11 +11,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    regular: require("@assets/fonts/articulatcf-regular.otf"),
-    medium: require("@assets/fonts/articulatcf-medium.otf"),
-    semiBold: require("@assets/fonts/articulatcf-demibold.otf"),
-    bold: require("@assets/fonts/articulatcf-bold.otf"),
-    extraBold: require("@assets/fonts/articulatcf-extrabold.otf"),
+    regular: require("@assets/fonts/articulat_cf_regular.otf"),
+    medium: require("@assets/fonts/articulat_cf_medium.otf"),
+    semiBold: require("@assets/fonts/articulat_cf_demi_bold.otf"),
+    bold: require("@assets/fonts/articulat_cf_bold.otf"),
+    extraBold: require("@assets/fonts/articulat_cf_extra_bold.otf"),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -43,8 +43,14 @@ export default function RootLayout() {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="light" backgroundColor="#020912" translucent />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(home)/dashboard" />
+        <Stack.Screen
+          name="index"
+          options={{ animation: "slide_from_right" }}
+        />
+        <Stack.Screen
+          name="(home)/dashboard"
+          options={{ animation: "slide_from_right" }}
+        />
       </Stack>
     </SafeAreaView>
   );
